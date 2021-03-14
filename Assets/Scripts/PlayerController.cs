@@ -8,9 +8,22 @@ public class PlayerController : MonoBehaviour {
     public float moveSpeed = 5;
     public Animator animator;
 
+    // creating a reference of this script and calling it instance
+    public static PlayerController instance;
+
+    public string areaTransitionName;
+
     // Start is called before the first frame update
     void Start() {
-        
+        // Removes any duplicates of this object when switching scenes
+        if (instance == null) {
+            instance = this;
+        } else {
+            Destroy(gameObject);
+        }
+
+        // Don't destroy this object when we move into a new area
+        DontDestroyOnLoad(gameObject); // gameObject => current game object this script is attached to
     }
 
     // Update is called once per frame
